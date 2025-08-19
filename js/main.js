@@ -5,9 +5,17 @@ import { Cart } from "./cart.js";
 
 const cart = new Cart();
 
-fetch("store.json")
-  .then(res => res.json())
-  .then(store => {
+// Get "store" query param from URL, fallback to default store.json
+function getStoreUrl() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("store") || "default_store.json";
+}
+
+const storeUrl = getStoreUrl();
+
+fetch(storeUrl)
+  .then((res) => res.json())
+  .then((store) => {
     document.title = store.name + " | " + store.company;
     document.getElementById("store-name").textContent = store.name;
 
@@ -30,4 +38,4 @@ fetch("store.json")
       VenmoPayment(store.payment.venmo, total);
     });
   })
-  .catch(err => console.error("Error loading store:", err));
+  .catch((err) => console.error("Error loading store:", err));
