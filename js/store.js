@@ -69,6 +69,7 @@ export class StoreRenderer {
 
       div.querySelector("button").addEventListener("click", () => {
         this.cart.add(item);
+        showCartFeedback(item)
         this.renderCart();
       });
 
@@ -99,7 +100,6 @@ export class StoreRenderer {
       div.querySelector("input").addEventListener("input", (e) => {
         const val = parseInt(e.target.value);
         this.cart.updateQuantity(idx, val);
-        this.showCartFeedback(item);
         this.renderCart();
       });
 
