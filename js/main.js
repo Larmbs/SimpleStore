@@ -37,5 +37,11 @@ fetch(storeUrl)
       const total = cart.getTotal();
       VenmoPayment(store.payment.venmo, total);
     });
+    
+    document.getElementById("purchase-zelle").addEventListener("click", () => {
+      if (cart.isEmpty()) return alert("Cart is empty!");
+      const total = cart.getTotal();
+      ZellePayment(store.payment.zelle, total, `Purchase at ${store.name}`);
+    });
   })
   .catch((err) => console.error("Error loading store:", err));
