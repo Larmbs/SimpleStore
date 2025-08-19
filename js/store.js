@@ -17,6 +17,7 @@ export class StoreRenderer {
     if (this.tagFilter) {
       this.tagFilter.addEventListener("change", () => this.renderStoreItems());
       this.populateTagFilter();
+      console.log("Hello")
     }
   }
 
