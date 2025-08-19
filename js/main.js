@@ -1,6 +1,6 @@
 import { StoreRenderer } from "./store.js";
 import { StyleManager } from "./style.js";
-import { PayPalPayment, VenmoPayment } from "./payment.js";
+import { PayPalPayment, VenmoPayment, ZellePayment } from "./payment.js";
 import { Cart } from "./cart.js";
 
 const cart = new Cart();
@@ -37,7 +37,8 @@ fetch(storeUrl)
       const total = cart.getTotal();
       VenmoPayment(store.payment.venmo, total);
     });
-    
+
+    // Not working for some reason
     document.getElementById("purchase-zelle").addEventListener("click", () => {
       if (cart.isEmpty()) return alert("Cart is empty!");
       const total = cart.getTotal();

@@ -51,7 +51,28 @@ input[type="number"] {
   gap: 10px;
 }
 
-#search-box, #tag-filter {
+#search-box,
+#tag-filter {
   padding: 8px;
   font-size: 14px;
+}
+#cart-feedback {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #1976d2;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  font-family: Arial, sans-serif;
+  z-index: 9999;
+}
+
+#cart-feedback.show {
+  opacity: 1;
+  transform: translateY(0);
 }
