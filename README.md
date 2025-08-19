@@ -46,3 +46,4 @@ Find a site that can host your Json.
 
 ### Done
 Now just build your link.
+https://raw.githubusercontent.com/Larmbs/minimalist_store_front/refs/heads/main/index.html?store=YourJsonFileLink
