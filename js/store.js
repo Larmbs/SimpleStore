@@ -69,8 +69,8 @@ export class StoreRenderer {
 
       div.querySelector("button").addEventListener("click", () => {
         this.cart.add(item);
-        this.showCartFeedback(item)
         this.renderCart();
+        this.showCartFeedback(item)
       });
 
       this.itemsContainer.appendChild(div);
