@@ -1,7 +1,11 @@
+import { StyleManager } from "./style.js";
+
 export class StoreRenderer {
   constructor(store, cart) {
     this.store = store;
     this.cart = cart;
+    this.styleManager = new StyleManager(store);;
+
     this.itemsContainer = document.getElementById("items-container");
     this.cartContainer = document.getElementById("cart-items");
     this.totalContainer = document.getElementById("total");
@@ -75,6 +79,8 @@ export class StoreRenderer {
 
       this.itemsContainer.appendChild(div);
     }
+
+    this.styleManager.applyStoreStyles();
   }
 
   /**

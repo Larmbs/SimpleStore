@@ -22,9 +22,6 @@ fetch(storeUrl)
     const renderer = new StoreRenderer(store, cart);
     renderer.renderStoreItems();
 
-    const styleManager = new StyleManager(store);
-    styleManager.applyStoreStyles();
-
     // Purchase buttons
     document.getElementById("purchase-paypal").addEventListener("click", () => {
       if (cart.isEmpty()) return alert("Cart is empty!");
