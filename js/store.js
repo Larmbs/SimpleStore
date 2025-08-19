@@ -6,29 +6,79 @@ export class StoreRenderer {
     this.cartContainer = document.getElementById("cart-items");
     this.totalContainer = document.getElementById("total");
     this.feedback = document.getElementById("cart-feedback");
+
+    // Optional filter elements
+    this.searchBox = document.getElementById("search-box");
+    this.tagFilter = document.getElementById("tag-filter");
+
+    if (this.searchBox) {
+      this.searchBox.addEventListener("input", () => this.renderStoreItems());
+    }
+    if (this.tagFilter) {
+      this.tagFilter.addEventListener("change", () => this.renderStoreItems());
+      this.populateTagFilter();
+    }
   }
 
+  /**
+   * Populates the tag dropdown filter from store items
+   */
+  populateTagFilter() {
+    const tags = new Set();
+    Object.values(this.store.items).forEach((item) => {
+      if (item.tags) item.tags.forEach((t) => tags.add(t));
+    });
+
+    tags.forEach((tag) => {
+      const opt = document.createElement("option");
+      opt.value = tag;
+      opt.textContent = tag;
+      this.tagFilter.appendChild(opt);
+    });
+  }
+
+  /**
+   * Renders all items, filtered by search and/or tag
+   */
   renderStoreItems() {
     this.itemsContainer.innerHTML = "";
+
+    const searchText = this.searchBox ? this.searchBox.value.toLowerCase() : "";
+    const selectedTag = this.tagFilter ? this.tagFilter.value : "";
+
     for (const key in this.store.items) {
       const item = this.store.items[key];
+
+      const matchesSearch = item.name.toLowerCase().includes(searchText);
+      const matchesTag =
+        !selectedTag || (item.tags && item.tags.includes(selectedTag));
+
+      if (!matchesSearch || !matchesTag) continue;
+
       const div = document.createElement("div");
       div.className = "item";
       div.innerHTML = `
         <span class="item-name">${item.name}</span>
         <span class="item-price">$${item.price.toFixed(2)}</span>
         <div class="item-description">${item.description}</div>
+        <div class="item-tags">${(item.tags || [])
+          .map((t) => `<span class="tag">${t}</span>`)
+          .join(" ")}</div>
         <button>Add to Cart</button>
       `;
+
       div.querySelector("button").addEventListener("click", () => {
         this.cart.add(item);
         this.renderCart();
-        this.showCartFeedback(item);
       });
+
       this.itemsContainer.appendChild(div);
     }
   }
 
+  /**
+   * Renders cart contents with quantity editing + remove
+   */
   renderCart() {
     this.cartContainer.innerHTML = "";
     const items = this.cart.items;
@@ -45,12 +95,15 @@ export class StoreRenderer {
       `;
       this.cartContainer.appendChild(div);
 
+      // Quantity change
       div.querySelector("input").addEventListener("input", (e) => {
         const val = parseInt(e.target.value);
         this.cart.updateQuantity(idx, val);
+        this.showCartFeedback(item);
         this.renderCart();
       });
 
+      // Remove item
       div.querySelector("button").addEventListener("click", (e) => {
         this.cart.remove(idx);
         this.renderCart();
