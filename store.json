@@ -1,0 +1,32 @@
+{
+  "name": "Store Name",
+  "company": "Owner's Name",
+  "payment": {
+    "paypal": "Username",
+    "venmo": "Username",
+    "zelle": "Email/Phone number"
+  },
+  "items": {
+    "item1": {
+      "name": "Item 1",
+      "description": "A item",
+      "price": 5.0
+    },
+    "item2": {
+      "name": "Item 2",
+      "description": "A item",
+      "price": 7.5
+    }
+  },
+  "style": {
+    "backgroundColor": "#f0f0f0",
+    "textColor": "#333333",
+    "headingColor": "#1a73e8",
+    "fontFamily": "Arial, sans-serif",
+    "linkColor": "#1a73e8",
+    "buttonBackground": "#1a73e8",
+    "buttonTextColor": "#ffffff",
+    "borderColor": "#ccc",
+    "spacing": "10px"
+  }
+}
